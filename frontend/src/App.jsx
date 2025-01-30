@@ -3,6 +3,8 @@ import axios from 'axios';
 import HomePage from './components/HomePage';
 import TaskForm from './components/TaskForm';
 import './App.css';
+// import {BrowserRouter as Route,Router,Routes} from 'react-router-dom'
+import { Route,Router,Routes } from 'react-router';
 
 const API_BASE_URL = 'http://localhost:3000';
 
@@ -34,7 +36,7 @@ const App = () => {
 
   const addTask = async (task) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/tasks`, task);
+      const response = await axios.post(`${API_BASE_URL}/create-tasks`, task);
       setTasks([response.data, ...tasks]);
     } catch (err) {
       console.error('Error adding task:', err);
@@ -54,9 +56,15 @@ const App = () => {
   return (
     <div className="App">
       <h1>My Task List</h1>
-      <TaskForm onTaskCreated={fetchTasks} />
+      {/* <TaskForm onTaskCreated={fetchTasks} /> */}
       <HomePage tasks={tasks} refreshTasks={setTasks} />
+      <Router>
+        <Routes>
+          <Route path='/taskform' element={<TaskForm/>}></Route>
+        </Routes>
+      </Router>
     </div>
+    
   );
 };
 

@@ -40,6 +40,14 @@ app.get('/tasks', async (req, res) => {
     }
 });
 
+app.post('/create-tasks',async(req,res)=>{
+    try{
+        const task=await Task.create(req.body)
+        res.status(201).send({task})
+    }catch(err){
+        return res.status(500).send({Error:err.message})
+    }
+})
 
 // Write an endpoint to create a new task.
 
